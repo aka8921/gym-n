@@ -1,12 +1,11 @@
 <template>
     <v-content>
-         <h1>hello login</h1>
-  </v-content>
+        member
+    </v-content>
 </template>
 
 <script>
 export default {
-    name:"login"
-
+    name: "member"
 }
 </script>
