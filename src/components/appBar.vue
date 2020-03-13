@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <v-app-bar
-        color="deep-purple"
+        color="red--darken"
         dark
         >
 
@@ -10,7 +10,7 @@
                 v-if="this.$route.name != 'home'"
                 >
                 <v-icon>
-                    <v-icon>mdi-heart</v-icon>
+                    <v-icon>fas fa-search</v-icon>
                 </v-icon>
                 </v-btn>
 
