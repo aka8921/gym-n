@@ -8,7 +8,7 @@
           
           <v-col
           cols="12"
-          md="4" sm="6" lg="4"
+          md="4" sm="6" lg="3"
           v-for="i in 12"
           :key="i"
           >
@@ -22,25 +22,43 @@
           <router-link to="/member" class="url">
           <v-card
           class="mx-auto pa-5"
-          max-width="344"
+          max-width="250"
           outlined
           :elevation="hover ? 16 : 2"
           dark
           
           >
-              <v-list-item two-line>
-                <v-list-item-content>
-                  <v-list-item-title class="headline ">Name</v-list-item-title>
-                  <v-list-item-subtitle>address</v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-avatar size="60" color="grey">
+              
+              <div class="d-flex flex-column justify-center align-center">
+                <v-avatar size="100" color="grey">
                   <img src="http://daflow.in/img/teams/Neeraj_unnikrishnan.jpg" />
-                </v-list-item-avatar>
-              </v-list-item>
-              <v-card-text>
-                Phone No.
-                <span class="red--text">8954125412</span>
-              </v-card-text>
+                </v-avatar>
+                <span class="headline pt-2">
+                  Vighnesh S
+                </span>
+                <span class="caption pt-2">
+                  8921830451
+                </span>
+                <span class="overline pt-2">
+                  
+                  <v-chip
+                    class="ma-2"
+                    color="green"
+                    text-color="white"
+                  >
+                    <v-avatar
+                      left
+                      class="green darken-4"
+                    >
+                      3
+                    </v-avatar>
+                    days
+                  </v-chip>
+                </span>
+                <div class="pa-0 ma-0">
+                <span class="red--text title">#001</span>
+              </div>
+              </div>
               
         </v-card>
         </router-link>

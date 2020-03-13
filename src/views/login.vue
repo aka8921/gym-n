@@ -28,7 +28,11 @@
                             ></v-text-field>
                             </v-card-text>
                             <div class="my-2 d-flex justify-center pb-5">
+                                
+                                <router-link to="/">    
                                 <v-btn large color="primary">GO</v-btn>
+                                </router-link>
+                            
                             </div> 
                         </v-card>
                     </v-col>
