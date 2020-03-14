@@ -7,6 +7,7 @@ import main from '../views/main.vue'
 import home from '../views/home'
 import member from '../views/member'
 import addMember from '../views/addMember'
+import editMember from '../views/editMember'
 
 
 Vue.use(VueRouter)
@@ -31,6 +32,12 @@ const routes = [
           path:'/add-member',
           name:'addMember',
           component: addMember,
+        }
+        ,
+        {
+          path:'/edit-member',
+          name:'Edit Member',
+          component: editMember,
         }
       ]
   },

@@ -16,6 +16,9 @@
             +91 8921830451
         </span>
         <div class="ma-2"></div>
+
+        <span class="d-block overline">Lorem ipsum, dolor sit amet, consectetur, adipisicing.</span> 
+        <div class="ma-2"></div>
         <span class="overline pt-2">
                   Expires in
                   <v-chip
@@ -49,6 +52,15 @@
                     </v-card >
                 </div>
 
+
+                <div class="ma-3"></div>
+
+                <span class="display-3">Other Parameters</span>
+
+                <div class="ma-3"></div>
+
+
+
                 <v-simple-table class="table">
                     <template >
                     <thead >
@@ -65,6 +77,33 @@
                     </tbody>
                     </template>
                 </v-simple-table>
+                
+
+                <div class="ma-3"></div>
+
+                <span class="display-3">Log History</span>
+
+                <div class="ma-3"></div>
+
+
+                <v-simple-table class="table">
+                    <template >
+                    <thead >
+                        <tr>
+                        <th class="text-center">Renewed on</th>
+                        <th class="text-center">Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="i in 5" :key="i">
+                        <td class="text-center">Date</td>
+                        <td class="text-center">3 months</td>
+                        </tr>
+                    </tbody>
+                    </template>
+                </v-simple-table>
+
+
                 <div class="ma-5">
                     <v-btn large color="primary">Edit</v-btn>
                     <span class="mx-3"></span>

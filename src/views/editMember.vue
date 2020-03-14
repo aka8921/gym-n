@@ -56,7 +56,11 @@
 
             <div class="ma-10"></div>
             <v-row justify="center">
-                <v-btn class="blue white--text" @click="addFarmer()">Submit</v-btn>
+            <div class="ma-5">
+                    <v-btn large color="primary">Submit</v-btn>
+                    <span class="mx-3"></span>
+                    <v-btn large color="error">Cancel</v-btn>
+            </div>
             </v-row>
             <div class="ma-10"></div>
             </v-col>
@@ -65,7 +69,7 @@
 
 <script>
 export default {
-  name: "addMember",
+  name: "editMember",
   data() {
     return {
       memberData: {
