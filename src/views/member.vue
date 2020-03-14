@@ -35,6 +35,20 @@
 
                 <div class="ma-3"></div>
 
+                <div class="d-flex ma-5">
+                    <v-card class="yellow black--text pa-10 d-flex flex-column align-center justify-center">
+                        <span class="d-block overline">Renew For</span> 
+                        <span class="d-block display-3">1</span> 
+                        <span class="d-block overline">Month</span>
+                    </v-card >
+                    <div class="mx-3"></div>
+                    <v-card class="blue  pa-10 d-flex flex-column align-center justify-center">
+                        <span class="d-block overline">Renew For</span> 
+                        <span class="d-block display-3">3</span> 
+                        <span class="d-block overline">Months</span>
+                    </v-card >
+                </div>
+
                 <v-simple-table class="table">
                     <template >
                     <thead >
