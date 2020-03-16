@@ -29,9 +29,14 @@
                             </v-card-text>
                             <div class="my-2 d-flex justify-center pb-5">
                                 
-                                <router-link to="/">    
-                                <v-btn large color="primary">GO</v-btn>
-                                </router-link>
+                                <!--
+                                    <router-link to="/">    
+                                
+                                    </router-link>
+                                -->
+
+
+                                <v-btn large color="primary" @click="loginHandle">GO</v-btn>
                             
                             </div> 
                         </v-card>
@@ -51,6 +56,12 @@ export default {
             show1: false,
             username:'',
             password:'',
+        }
+    },
+    methods: {
+        loginHandle(){
+            alert ("login handle called")//
+            this.$router.push('/')
         }
     }
 }

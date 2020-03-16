@@ -39,7 +39,10 @@ const routes = [
           name:'Edit Member',
           component: editMember,
         }
-      ]
+      ],
+      meta:{
+        requireAuth:true
+      }
   },
   {
     path:'/login',
@@ -59,4 +62,22 @@ const router = new VueRouter({
     routes
   })
   
+
+
+
+router.beforeEach((to,from,next) =>{
+  if( to.matched.some( record => record.meta.requireAuth )){
+    if( localStorage.getItem('jwt') === null ){
+      next( {path:'/login'} );
+    }
+    //else(){}
+  }
+  else{
+    next();
+  }
+})
+
+
+
+
 export default router

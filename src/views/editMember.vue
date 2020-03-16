@@ -88,12 +88,11 @@ export default {
     };
   },
   methods: {
-    loadImage(event) {
-      console.log(event)
-      this.farmerData.profilePhoto = event;
+    loadImage() {
+      
     },
     removeImage() {
-      this.farmerData.profilePhoto = null;
+      
     },
     addMember() {
       
