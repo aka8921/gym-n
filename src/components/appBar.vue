@@ -6,27 +6,32 @@
         
         >
 
-                <!--<v-btn icon
+                <v-btn icon
                 @click="$router.go(-1)"
                 v-if="this.$route.name != 'home'"
                 >
                 <v-icon>
-                    <v-icon>fas fa-search</v-icon>
+                    mdi-arrow-left-bold
                 </v-icon>
-                </v-btn>-->
+                </v-btn>
 
             <v-toolbar-title  v-if="this.$route.name === 'home'">Slim Fit Gym</v-toolbar-title>
             <v-toolbar-title  v-else>{{this.$route.name}}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <!--<router-link
+            <router-link to = '/logout'>
+                <v-btn>
+                    Log Out
+                </v-btn>
+            </router-link>
+            <router-link
             to="/add-member"
             >
                 <v-btn icon>
                 <v-icon>
-                    <v-icon>mdi-heart</v-icon>
+                    mdi-account-plus
                 </v-icon>
                 </v-btn>
-            </router-link>-->
+            </router-link>
         </v-app-bar>
     </v-content>
 </template>

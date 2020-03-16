@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         loginHandle(){
-            /*
+            
             if(this.password.length > 0 ){
                 this.$axios.post('http://localhost:8000/api/auth/token/login',{
                     username: this.username,
@@ -81,46 +81,13 @@ export default {
                 })
             }
             else{
-                alert('apssword is left blank');
+                alert('password is left blank');
             }
-            */
-           console.log('running');
-           var tok = 'Token ' + localStorage.getItem('token')
-           console.log(tok)
-           console.log(typeof(tok))
-           var authOptions = {
-               method: 'POST',
-               url: 'http://localhost:8000/api/v1/members',
-               data: {},
-               headers: {
-                   'authorization' : tok
-               }
-           }
-           if(this.password.length > 0 ){
-                this.$axios(authOptions)
-                .then(response => {
-                    console.log('response')
-                    console.log(response.data)
-                    //localStorage.setItem('token', response.data.auth_token)
-                    //if(localStorage.getItem('token') !== null){
-                      //  this.$emit('loggedin')
-                    //    this.$router.push('/')
-                   // }
-                    
-                })
-                .catch( error => {
-                    console.log(error);
-                })
-            }
-            else{
-                alert('apssword is left blank');
-            }
-            //this.$router.push('/')
         }
     },
     created(){
         if(localStorage.getItem('token') !== null){
-            //this.$router.push('/');
+            this.$router.push('/');
         }
     }
 }

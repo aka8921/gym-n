@@ -9,8 +9,8 @@
           <v-col
           cols="12"
           md="4" sm="6" lg="3"
-          v-for="i in 12"
-          :key="i"
+          v-for="detail in details"
+          :key="detail.phone"
           >
 
 
@@ -19,7 +19,7 @@
           <!--card starts from here-->
 
           <v-hover v-slot:default="{ hover }">
-          <router-link to="/member" class="url">
+          <router-link :to="{ name: 'member', params: { id: detail.id }}">
           <v-card
           class="mx-auto pa-5"
           max-width="250"
@@ -31,13 +31,13 @@
               
               <div class="d-flex flex-column justify-center align-center">
                 <v-avatar size="100" color="grey">
-                  <img src="http://daflow.in/img/teams/Neeraj_unnikrishnan.jpg" />
+                  <img :src="detail.photo" />
                 </v-avatar>
                 <span class="headline pt-2">
-                  Vighnesh S
+                  {{detail.name}}
                 </span>
                 <span class="caption pt-2">
-                  8921830451
+                  {{detail.phone}}
                 </span>
                 <span class="overline pt-2">
                   
@@ -46,17 +46,14 @@
                     color="green"
                     text-color="white"
                   >
-                    <v-avatar
-                      left
-                      class="green darken-4"
-                    >
-                      3
-                    </v-avatar>
-                    days
+                    
+                      {{                  getDaysRemaining(detail.exp_date)                }}
+                  
                   </v-chip>
                 </span>
+                
                 <div class="pa-0 ma-0">
-                <span class="red--text title">#001</span>
+                <!--<span class="red--text title">#001</span>-->
               </div>
               </div>
               
@@ -82,24 +79,67 @@
 export default {
   
     name:"home",
+    data(){
+      return{
+        details: [],
+        next: '',
+        prev: '',
+      }
+    },
+    computed:{
+      today: function(){
+        return String((new Date()))
+      }
+    },
     methods:{
+      getDaysRemaining(expDate){
+          //console.log(expDate)
+          var d = 'Days'; //days,months/years 
+          var remainingDays = Math.round(((  new Date(expDate).getTime()  ) - (new Date().getTime())) / (1000 * 3600 * 24));
+          if(remainingDays < 0){
+            remainingDays = 0;
+          }
+          else if( remainingDays > 30 && remainingDays < 365){
+            remainingDays /= 30;
+            d = 'Months'
+          }
+          else if(remainingDays > 365){
+            remainingDays /= 365
+            d = 'Years'
+          }
+          remainingDays = (d === 'Years')? remainingDays.toFixed(2) : Math.round(remainingDays)
+          return (remainingDays+' '+d);
+      },
       getlist(){
-        this.$axios.post('http://localhost:8000/api/auth/token/login',{
-                    username: this.username,
-                    password: this.password
-                })
-                .then(response => {
-                    console.log(response.data.auth_token)
-                    localStorage.setItem('token', response.data.auth_token)
-                    if(localStorage.getItem('token') !== null){
-                        this.$emit('loggedin')
-                        this.$router.push('/')
-                    }
-                    
-                })
-                .catch( error => {
-                    console.log(error);
-                })
+        console.log('running');
+           var tok = `Token ${localStorage.getItem('token')}`
+           console.log(tok)
+           console.log(typeof(tok))
+
+           // axios data
+           /*var authOptions = {
+               method: 'POST',
+               url: 'http://localhost:8000/api/v1/members/',
+               data: {},
+               headers: {
+                   'Authorization' : tok,
+               }
+           }*/
+           
+          this.$axios.get(/*authOptions*/'http://localhost:8000/api/v1/members/',{
+            headers:{
+              'authorization' : tok,
+            }
+          })
+          .then(response => {
+              console.log('response')
+              console.log(response.data)
+              this.details = response.data.results;
+          })
+          .catch( error => {
+            console.log('error')
+              console.log(error);
+          })
     }
     },
     beforeMount(){

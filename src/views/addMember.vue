@@ -56,7 +56,7 @@
 
             <div class="ma-10"></div>
             <v-row justify="center">
-                <v-btn class="blue white--text" @click="addFarmer()">Submit</v-btn>
+                <v-btn class="blue white--text" @click="addMember()">Submit</v-btn>
             </v-row>
             <div class="ma-10"></div>
             </v-col>
@@ -86,13 +86,40 @@ export default {
   methods: {
     loadImage(event) {
       console.log(event)
-      this.farmerData.profilePhoto = event;
+      this.memberData.profilePhoto = event;
     },
     removeImage() {
-      this.farmerData.profilePhoto = null;
+      this.memberData.profilePhoto = null;
     },
     addMember() {
-      
+      console.log(this.memberData);
+      const data = this.memberData;
+      // for deleting keys without data in the array
+      //   for (let key in data) {
+      //     if (!data[key]) {
+      //       delete data[key];
+      //     }
+      //   }
+      //constructing a FormData object ..
+      const formdata = new FormData();
+      Object.keys(data).forEach(key => {
+        formdata.append(key, data[key]);
+      });
+
+      var tok = `Token ${localStorage.getItem('token')}`
+      this.$axios({
+        url: "http://localhost:8000/api/v1/members/",
+        method: "POST",
+        data: formdata,
+        headers: tok,
+      })
+        .then(res => {
+          alert(`Member Added Successfully ${res}`);
+        })
+        .catch(err => {
+          console.log('error')
+          console.log(err);
+        });
     }
   } //done upto the scope of MVP
 };

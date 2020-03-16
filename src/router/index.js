@@ -8,6 +8,7 @@ import home from '../views/home'
 import member from '../views/member'
 import addMember from '../views/addMember'
 import editMember from '../views/editMember'
+import logout from '../views/logout'
 
 
 Vue.use(VueRouter)
@@ -23,7 +24,7 @@ const routes = [
           component: home,
         },
         {
-          path:'/member',
+          path:'/member/:id',
           name:'member',
           component: member,
         },
@@ -37,6 +38,11 @@ const routes = [
           path:'/edit-member',
           name:'Edit Member',
           component: editMember,
+        },
+        {
+          path:'/logout',
+          name:'logout',
+          component: logout,
         }
       ],
       meta:{
@@ -67,7 +73,7 @@ const router = new VueRouter({
 router.beforeEach((to,from,next) =>{
   if( to.matched.some( record => record.meta.requireAuth )){
     if( localStorage.getItem('token') === null ){
-      next( /*{path:'/login'}*/ );
+      next( {path:'/login'} );
     }
     else{
       next();
