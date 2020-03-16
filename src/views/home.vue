@@ -1,10 +1,31 @@
 <template>
     <div class="bg">
+      
+        <v-row class="d-flex justify-baseline">
+           
+           
+        
+          
+          <v-col
+          cols="12"
+          md="10" sm="10" lg="10"
+          >
+        <v-text-field
+          hide-details
+          prepend-icon="mdi-search"
+          single-line
+          v-model="searchTerm"
+          @keyup.enter="getlist( searchTerm )"
+          solo
+        ></v-text-field>
+          </v-col></v-row>
+      
+      
     <v-container >
          <v-row class="d-flex">
            
            
-        
+           
           
           <v-col
           cols="12"
@@ -19,9 +40,9 @@
           <!--card starts from here-->
 
           <v-hover v-slot:default="{ hover }">
-          <router-link :to="{ name: 'member', params: { id: detail.id }}">
+          <router-link :to="{ name: 'member', params: { id: detail.id }}" class="url">
           <v-card
-          class="mx-auto pa-5"
+          class="mx-auto pa-5 "
           max-width="250"
           outlined
           :elevation="hover ? 16 : 2"
@@ -29,7 +50,7 @@
           
           >
               
-              <div class="d-flex flex-column justify-center align-center">
+              <div class="d-flex flex-column justify-center align-center ">
                 <v-avatar size="100" color="grey">
                   <img :src="detail.photo" />
                 </v-avatar>
@@ -84,6 +105,7 @@ export default {
         details: [],
         next: '',
         prev: '',
+        searchTerm:''
       }
     },
     computed:{
@@ -110,7 +132,7 @@ export default {
           remainingDays = (d === 'Years')? remainingDays.toFixed(2) : Math.round(remainingDays)
           return (remainingDays+' '+d);
       },
-      getlist(){
+      getlist( search ){
         console.log('running');
            var tok = `Token ${localStorage.getItem('token')}`
            console.log(tok)
@@ -120,28 +142,43 @@ export default {
            /*var authOptions = {
                method: 'POST',
                url: 'http://localhost:8000/api/v1/members/',
-               data: {},
+               data: {
+                 
+               },
                headers: {
                    'Authorization' : tok,
                }
            }*/
            
-          this.$axios.get(/*authOptions*/'http://localhost:8000/api/v1/members/',{
+          this.$axios(/*authOptions'http://localhost:8000/api/v1/members/',{
+              'search':'test2'
+            
+          },
+            {
             headers:{
               'authorization' : tok,
             }
-          })
-          .then(response => {
+          },*/
+          {
+             url : `http://localhost:8000/api/v1/members/`,
+             method : 'GET',
+            params : {
+            search : search
+            },
+            headers:{
+              'Authorization' : tok,
+              }
+            })
+            .then(response => {
               console.log('response')
               console.log(response.data)
               this.details = response.data.results;
-          })
-          .catch( error => {
-            console.log('error')
-              console.log(error);
-          })
-    }
-    },
+            })
+            .catch( error => {
+              console.log('error')
+                console.log(error);
+            })
+    }},
     beforeMount(){
         this.getlist();
    }
@@ -154,5 +191,6 @@ export default {
 }
 .bg{
   background-color: rgba(0,0,0,0.8);
+  min-height: 100vh;
 }
 </style>
