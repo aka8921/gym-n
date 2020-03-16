@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 //importing views
 
-import main from '../views/main.vue'
+import mainComponent from '../views/mainComponent.vue'
 import home from '../views/home'
 import member from '../views/member'
 import addMember from '../views/addMember'
@@ -15,8 +15,7 @@ Vue.use(VueRouter)
 const routes = [
   {
       path:'',
-      component: main,
-      name:'main',
+      component: mainComponent,
       children : [
         {
           path:'',
@@ -67,10 +66,12 @@ const router = new VueRouter({
 
 router.beforeEach((to,from,next) =>{
   if( to.matched.some( record => record.meta.requireAuth )){
-    if( localStorage.getItem('jwt') === null ){
-      next( {path:'/login'} );
+    if( localStorage.getItem('token') === null ){
+      next( /*{path:'/login'}*/ );
     }
-    //else(){}
+    else{
+      next();
+    }
   }
   else{
     next();

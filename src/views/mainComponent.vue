@@ -11,7 +11,7 @@
 import appBar from '../components/appBar'
 
 export default {
-    name:"main",
+    name:"mainComponent",
     components:{
         appBar,
     }

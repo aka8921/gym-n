@@ -80,8 +80,31 @@
 
 <script>
 export default {
-    name:"home"
-
+  
+    name:"home",
+    methods:{
+      getlist(){
+        this.$axios.post('http://localhost:8000/api/auth/token/login',{
+                    username: this.username,
+                    password: this.password
+                })
+                .then(response => {
+                    console.log(response.data.auth_token)
+                    localStorage.setItem('token', response.data.auth_token)
+                    if(localStorage.getItem('token') !== null){
+                        this.$emit('loggedin')
+                        this.$router.push('/')
+                    }
+                    
+                })
+                .catch( error => {
+                    console.log(error);
+                })
+    }
+    },
+    beforeMount(){
+        this.getlist();
+   }
 }
 </script>
 
