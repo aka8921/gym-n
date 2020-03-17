@@ -18,8 +18,7 @@
           prepend-icon="mdi-search"
           single-line
           v-model="searchTerm"
-          
-          @change="getlist( searchTerm )"
+          @keyup="getlist( searchTerm )"
           solo
           flat
           label="Search"
@@ -59,7 +58,7 @@
           <!--card starts from here-->
 
           <v-hover v-slot:default="{ hover }">
-          <router-link :to="{ name: 'member', params: { id: detail.id }}" class="url">
+          <router-link :to="{ name: 'Member Details', params: { id: detail.id }}" class="url">
           <v-card
           class="mx-auto pa-5 "
           max-width="250"
@@ -133,8 +132,19 @@ export default {
       }
     },
     methods:{
+    
       getDaysRemaining(expDate){
           //console.log(expDate)
+
+
+
+
+
+
+
+
+
+
           var d = 'Days'; //days,months/years 
           var remainingDays = Math.round(((  new Date(expDate).getTime()  ) - (new Date().getTime())) / (1000 * 3600 * 24));
           if(remainingDays < 0){
@@ -150,6 +160,14 @@ export default {
           }
           remainingDays = (d === 'Years')? remainingDays.toFixed(2) : Math.round(remainingDays)
           return (remainingDays+' '+d);
+
+
+
+
+
+
+
+          
       },
       getlist( search ){
         console.log('running');
@@ -157,27 +175,8 @@ export default {
            console.log(tok)
            console.log(typeof(tok))
 
-           // axios data
-           /*var authOptions = {
-               method: 'POST',
-               url: 'http://localhost:8000/api/v1/members/',
-               data: {
-                 
-               },
-               headers: {
-                   'Authorization' : tok,
-               }
-           }*/
            
-          this.$axios(/*authOptions'http://localhost:8000/api/v1/members/',{
-              'search':'test2'
-            
-          },
-            {
-            headers:{
-              'authorization' : tok,
-            }
-          },*/
+          this.$axios(
           {
              url : `http://localhost:8000/api/v1/members/`,
              method : 'GET',
@@ -191,7 +190,7 @@ export default {
             .then(response => {
               console.log('response')
               console.log(response.data)
-              this.details = response.data.results;
+              this.details = response.data;
             })
             .catch( error => {
               console.log('error')

@@ -2,9 +2,7 @@
     <v-content class=" d-flex flex-column justify-start main py-8">
         <v-col cols="12" xs="7" sm="7" md="7" lg="7" xl="7" class="mx-auto">
             <v-row justify="center">
-                <v-avatar size="250" color="grey" class="mb-5">
-                <v-img src="http://daflow.in/img/teams/Neeraj_unnikrishnan.jpg"></v-img>
-                </v-avatar>
+                <h1 class="display-4 purple--text ma-5">Edit Member</h1>
             </v-row>
             <v-row justify="center">
                 <div class="text-center">

@@ -8,7 +8,7 @@
 
                 <v-btn icon
                 @click="$router.go(-1)"
-                v-if="this.$route.name != 'home'"
+                v-if="this.$route.name != 'Home'"
                 >
                 <v-icon>
                     mdi-arrow-left-bold

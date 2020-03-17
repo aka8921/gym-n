@@ -20,17 +20,17 @@ const routes = [
       children : [
         {
           path:'',
-          name:'home',
+          name:'Home',
           component: home,
         },
         {
           path:'/member/:id',
-          name:'member',
+          name:'Member Details',
           component: member,
         },
         {
           path:'/add-member',
-          name:'addMember',
+          name:'Add Member',
           component: addMember,
         }
         ,

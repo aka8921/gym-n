@@ -82,6 +82,11 @@
                         <td class="text-center">Date Joined</td>
                         <td class="text-center">{{data.date_joined}}</td>
                         </tr>
+
+                        <tr>
+                        <td class="text-center">Expires On</td>
+                        <td class="text-center">{{data.exp_date}}</td>
+                        </tr>
                     </tbody>
                     </template>
                 </v-simple-table>
@@ -113,9 +118,11 @@
 
 
                 <div class="ma-5">
+                    <router-link :to="{ name: 'Edit Member', params: { id: data.id }}" class="url">
                     <v-btn large color="primary">Edit</v-btn>
+                    </router-link>
                     <span class="mx-3"></span>
-                    <v-btn large color="error">Delete</v-btn>
+                    <v-btn large color="error" @click="deleteMember()">Delete</v-btn>
                 </div>
 
     </div>
@@ -127,12 +134,77 @@ export default {
     data(){
         return{
             data: {},
+            log:'',
         }
     },
     methods:{
+        deleteMember() {
+        var tok = `Token ${localStorage.getItem('token')}`
+      
+      this.$axios({
+        url: `http://localhost:8000/api/v1/members/${this.data.id}`,
+        headers:{
+              'Authorization' : tok,
+              },
+          method: "DELETE",
+        
+      })
+        .then(res => {
+          console.log(`Member deleted Successfully ${res}`);
+          this.$router.go(-1);
+        })
+        .catch(err => {
+          console.log(err)
+        });
+    },
+
+
+
+
+
+
+
         renewMembership(n){
-            alert('renewed for '+n+' months');
+
+
+
+
+
+            //testing area
+            console.log(n);
+
+            var startDate = new Date( this.data.exp_date);
+            console.log(startDate)
+            var endDateMoment = this.moment(startDate);
+            (n >= 0) ? endDateMoment.add(n, 'months'): endDateMoment.subtract(n, 'months');
+            var extendedDate = endDateMoment.format('YYYY-MM-DD');
+
+
+
+
+            this.$axios({
+                url: `http://localhost:8000/api/v1/members/${this.data.id}/`,
+                method: 'PATCH',
+                data:{
+                    exp_date: extendedDate,
+                }
+                
+            })
+            .then( res => {
+                console.log(res)
+                //console.log(this.data.exp_date);
+                console.log('renewed for '+n+' months');
+                this.getDetails();
+            })
+            .catch(err => {
+                console.log(err)
+            })
         },
+
+
+
+
+
         getDaysRemaining(expDate){
           //console.log(expDate)
           var d = 'Days'; //days,months/years 
@@ -151,6 +223,32 @@ export default {
           remainingDays = (d === 'Years')? remainingDays.toFixed(2) : Math.round(remainingDays)
           return (remainingDays+' '+d);
       },
+      getLog(){
+            console.log('fetching the details');
+            var id = this.$route.params.id;
+            var tok = 'Token '+localStorage.getItem('token');
+             this.$axios(
+          {
+             url : `http://localhost:8000/api/v1/members/`,
+             method : 'GET',
+            params : {
+            search : id
+            },
+            headers:{
+              'Authorization' : tok,
+              }
+            })
+            .then( res => {
+                this.log = res.data ;
+                //console.log(res.data)
+                console.log('log History')
+                console.log(this.log)
+            })
+            .catch(err => {
+                console.log(err.response.data)
+
+            })
+        },
         getDetails(){
             console.log('fetching the details');
             var id = this.$route.params.id;
@@ -163,16 +261,16 @@ export default {
           })
             .then( res => {
                 this.data = res.data ;
-                //console.log(res.data)
-                console.log(this.data)
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.response.data)
+
             })
         }
     },
     beforeMount(){
         this.getDetails()
+        //this.getLog()
     }
 }
 </script>

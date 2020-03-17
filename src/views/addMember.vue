@@ -1,11 +1,16 @@
 <template>
     <v-content class=" d-flex flex-column justify-start main py-8">
         <v-col cols="12" xs="7" sm="7" md="7" lg="7" xl="7" class="mx-auto">
-            <v-row justify="center">
+          <v-row justify="center">
+                    <h1 class="display-4 purple--text ma-5">Add Member</h1>
+                  </v-row>
+            <!--
+              <v-row justify="center">
                 <v-avatar size="250" color="grey" class="mb-5">
                 <v-img src="http://daflow.in/img/teams/Neeraj_unnikrishnan.jpg"></v-img>
                 </v-avatar>
             </v-row>
+            -->
             <v-row justify="center">
                 <div class="text-center">
                 <v-file-input
@@ -78,47 +83,24 @@ export default {
   },
   methods: {
     loadImage(event) {
-      console.log(event)
       this.memberData.photo = event;
     },
     removeImage() {
       this.memberData.profilePhoto = null;
     },
     addMember() {
-      //console.log(this.memberData);
-      // for deleting keys without data in the array
-      //   for (let key in data) {
-      //     if (!data[key]) {
-      //       delete data[key];
-      //     }
-      //   }
+      
       // constructing a FormData object ..
       const data = this.memberData;
       const formdata = new FormData();
-      //var obj = Object.keys(data);
-      //console.log(data[testx[0]])//test
-      // obj.forEach(key => {
-      //   formdata[key] = data[key];
-      //   console.log(data[key])//test
-      // });
-
-
-
-
-
-
       Object.keys(data).forEach(key => {
-
         formdata.append(key, data[key]);
-
-      });
-
+        });
 
 
 
-
-      
       var tok = `Token ${localStorage.getItem('token')}`
+      
       this.$axios({
         url: "http://localhost:8000/api/v1/members/",
         headers:{
@@ -131,14 +113,13 @@ export default {
       })
         .then(res => {
           alert(`Member Added Successfully ${res}`);
+          this.$router.go(-1)
         })
         .catch(err => {
-          console.log('error')
-          console.log(err.response);
-          console.log(err.data);
+          console.log(err)
         });
         
     }
-  } //done upto the scope of MVP
+  } 
 };
 </script>
