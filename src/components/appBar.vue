@@ -18,13 +18,14 @@
             <v-toolbar-title  v-if="this.$route.name === 'home'">Slim Fit Gym</v-toolbar-title>
             <v-toolbar-title  v-else>{{this.$route.name}}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <router-link to = '/logout'>
+            <router-link to = '/logout' class="url">
                 <v-btn>
                     Log Out
                 </v-btn>
             </router-link>
             <router-link
             to="/add-member"
+            class="url"
             >
                 <v-btn icon>
                 <v-icon>
@@ -41,3 +42,9 @@ export default {
     name:'appBar'
 }
 </script>
+
+<style scoped>
+.url{
+    text-decoration: none;
+}
+</style>

@@ -32,15 +32,7 @@
             <div class="ma-5"></div>
         </v-col>
             <v-row justify="center" >
-                <v-col cols="12" xs="6" sm="6" md="6" lg="6" xl="6" class="px-auto">
-                  <v-row justify="center">
-                    <h1 class="display-1">Date Of Birth</h1>
-                  </v-row>
-                  <div class="ma-5"></div>
-                  <v-row justify="center">
-                    <v-date-picker v-model="memberData.dob"  :landscape="$vuetify.breakpoint.smAndUp"></v-date-picker>
-                  </v-row>
-                </v-col>
+                
                 
                 <v-col cols="12" xs="6" sm="6" md="7" lg="6" xl="6" class="mx-auto">
                 <v-row justify="center">
@@ -48,7 +40,7 @@
                   </v-row>
                   <div class="ma-5"></div>
                   <v-row justify="center">
-                    <v-date-picker v-model="memberData.doj"  :landscape="$vuetify.breakpoint.smAndUp"></v-date-picker>
+                    <v-date-picker v-model="memberData.date_joined"  :landscape="$vuetify.breakpoint.smAndUp"></v-date-picker>
                   </v-row>
                 </v-col>
             </v-row>
@@ -69,15 +61,16 @@ export default {
   data() {
     return {
       memberData: {
-        name: "",
-        address: "",
-        phone: "",
-        age:"",
-        height:"",
-        weight:"",
-        profilePhoto: null,
-        dob: new Date().toISOString().substr(0, 10),
-        doj: new Date().toISOString().substr(0, 10)
+        name: "vighnesh",
+        address: "karuna, morakkunnu, chirakkara",
+        phone: "8921830451",
+        age:20,
+        height:5,
+        weight:56,
+        photo: null,
+        date_joined: new Date().toISOString().substr(0, 10),
+        exp_date: new Date().toISOString().substr(0, 10),
+        payment_status: true,
       },
       filename: null,
       previewImage: null
@@ -86,40 +79,65 @@ export default {
   methods: {
     loadImage(event) {
       console.log(event)
-      this.memberData.profilePhoto = event;
+      this.memberData.photo = event;
     },
     removeImage() {
       this.memberData.profilePhoto = null;
     },
     addMember() {
-      console.log(this.memberData);
-      const data = this.memberData;
+      //console.log(this.memberData);
       // for deleting keys without data in the array
       //   for (let key in data) {
       //     if (!data[key]) {
       //       delete data[key];
       //     }
       //   }
-      //constructing a FormData object ..
+      // constructing a FormData object ..
+      const data = this.memberData;
       const formdata = new FormData();
+      //var obj = Object.keys(data);
+      //console.log(data[testx[0]])//test
+      // obj.forEach(key => {
+      //   formdata[key] = data[key];
+      //   console.log(data[key])//test
+      // });
+
+
+
+
+
+
       Object.keys(data).forEach(key => {
+
         formdata.append(key, data[key]);
+
       });
 
+
+
+
+
+      
       var tok = `Token ${localStorage.getItem('token')}`
       this.$axios({
         url: "http://localhost:8000/api/v1/members/",
-        method: "POST",
+        headers:{
+              'Content-Type': 'multipart/form-data',
+              'Authorization' : tok,
+              },
+          method: "POST",
         data: formdata,
-        headers: tok,
+        
       })
         .then(res => {
           alert(`Member Added Successfully ${res}`);
         })
         .catch(err => {
           console.log('error')
-          console.log(err);
+          console.log(err.response);
+          console.log(err.data);
         });
+        
     }
   } //done upto the scope of MVP
 };

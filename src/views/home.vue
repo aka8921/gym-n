@@ -1,24 +1,43 @@
 <template>
     <div class="bg">
       
-        <v-row class="d-flex justify-baseline">
+        <v-row class="d-flex justify-center red">
            
            
         
           
           <v-col
           cols="12"
-          md="10" sm="10" lg="10"
+          md="6" sm="12" lg="6"
+          class=" pa-0 ma-0 d-flex align-center justify-center black"
           >
         <v-text-field
+        class=" ma-0 "
+        background-color="#000"
           hide-details
           prepend-icon="mdi-search"
           single-line
           v-model="searchTerm"
-          @keyup.enter="getlist( searchTerm )"
+          
+          @change="getlist( searchTerm )"
           solo
+          flat
+          label="Search"
         ></v-text-field>
-          </v-col></v-row>
+          </v-col>
+          
+          <v-col
+          cols="12"
+          md="6" sm="12" lg="6"
+          class="purple pa-0 ma-0 d-flex align-center justify-center"
+          >
+        <div
+          class="fullWidth d-flex justify-center align-center "
+          @click="getlist( searchTerm )"
+          
+        ><span class="overline py-5">Search</span></div>
+          </v-col>
+          </v-row>
       
       
     <v-container >
@@ -192,5 +211,10 @@ export default {
 .bg{
   background-color: rgba(0,0,0,0.8);
   min-height: 100vh;
+}
+.fullWidth{
+  height: 100%;
+  width: 100%;
+  border-radius: 0px;
 }
 </style>
