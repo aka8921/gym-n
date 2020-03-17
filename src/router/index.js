@@ -35,7 +35,7 @@ const routes = [
         }
         ,
         {
-          path:'/edit-member',
+          path:'/edit-member/:id',
           name:'Edit Member',
           component: editMember,
         },

@@ -17,28 +17,28 @@
                 </div>
             </v-row>
             <div class="ma-5"></div>
-            <v-text-field label="Name" solo v-model="memberData.name"></v-text-field>
-            <v-text-field label="Address" solo v-model="memberData.address"></v-text-field>
-            <v-text-field label="Age" solo v-model="memberData.age"></v-text-field>
-            <v-text-field label="Height" solo v-model="memberData.height"></v-text-field>
-            <v-text-field label="Weight" solo v-model="memberData.weight"></v-text-field>
-            <v-text-field label="Phone Number" solo v-model="memberData.phone"></v-text-field>
+            <span class="overline">Name</span>
+            <v-text-field label="Name" solo v-model="data.name"></v-text-field>
+            <span class="overline">Address</span>
+            <v-text-field label="Address" solo v-model="data.address"></v-text-field>
+            <span class="overline">Age</span>
+            <v-text-field label="Age" solo v-model="data.age"></v-text-field>
+            <span class="overline">Height</span>
+            <v-text-field label="Height" solo v-model="data.height"></v-text-field>
+            <span class="overline">Weight</span>
+            <v-text-field label="Weight" solo v-model="data.weight"></v-text-field>
+            <span class="overline">Phone</span>
+            <v-text-field label="Phone Number" solo v-model="data.phone"></v-text-field>
             
             <!--<v-row justify="center">
                 <h1 class="display-3">Date Of Birth</h1>
             </v-row>-->
             <div class="ma-5"></div>
         </v-col>
-            <v-row justify="center" >
-                <v-col cols="12" xs="6" sm="6" md="6" lg="6" xl="6" class="px-auto">
-                  <v-row justify="center">
-                    <h1 class="display-1">Date Of Birth</h1>
-                  </v-row>
-                  <div class="ma-5"></div>
-                  <v-row justify="center">
-                    <v-date-picker v-model="memberData.dob"  :landscape="$vuetify.breakpoint.smAndUp"></v-date-picker>
-                  </v-row>
-                </v-col>
+            <!--
+              <v-row justify="center" >
+                
+                
                 
                 <v-col cols="12" xs="6" sm="6" md="7" lg="6" xl="6" class="mx-auto">
                 <v-row justify="center">
@@ -50,14 +50,15 @@
                   </v-row>
                 </v-col>
             </v-row>
+             -->
         <v-col cols="12" xs="7" sm="7" md="7" lg="7" xl="7" class="mx-auto">
 
             <div class="ma-10"></div>
             <v-row justify="center">
             <div class="ma-5">
-                    <v-btn large color="primary">Submit</v-btn>
+                    <v-btn large color="primary" @click="editMember()">Submit</v-btn>
                     <span class="mx-3"></span>
-                    <v-btn large color="error">Cancel</v-btn>
+                    <v-btn large color="error" @click="$router.go(-1)">Cancel</v-btn>
             </div>
             </v-row>
             <div class="ma-10"></div>
@@ -70,7 +71,10 @@ export default {
   name: "editMember",
   data() {
     return {
-      memberData: {
+      data:{
+
+      },
+      EditableMemberData: {
         name: "",
         address: "",
         phone: "",
@@ -78,23 +82,82 @@ export default {
         height:"",
         weight:"",
         profilePhoto: null,
-        dob: new Date().toISOString().substr(0, 10),
-        doj: new Date().toISOString().substr(0, 10)
       },
       filename: null,
       previewImage: null
     };
   },
   methods: {
-    loadImage() {
-      
+    loadImage(event) {
+      this.data.photo = event;
+      console.log(this.data);
     },
     removeImage() {
       
     },
-    addMember() {
-      
+    
+    editMember() {
+
+
+      // constructing a FormData object ..
+      const editData = this.data;
+      const formdata = new FormData();
+      Object.keys(editData).forEach(key => {
+        formdata.append(key, editData[key]);
+        console.log(editData[key]);
+        });
+
+
+
+      var tok = 'Token '+ localStorage.getItem('token')
+      this.$axios({
+                url: `http://localhost:8000/api/v1/members/${this.data.id}/`,
+                headers:{
+                  'Content-Type': 'multipart/form-data',
+                  'Authorization' : tok,
+                },
+                method: 'PATCH',
+                data: formdata,
+                
+                
+            })
+            .then( res => {
+                console.log(res);
+                this.$router.go(-1);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
+
+
+    },
+    
+    getDetails(){
+            console.log('fetching the details');
+            var id = this.$route.params.id;
+            var tok = 'Token '+localStorage.getItem('token');
+            this.$axios.get(`http://localhost:8000/api/v1/members/${id}`,
+            {
+            headers:{
+              'authorization' : tok,
+            }
+          })
+            .then( res => {
+                this.data = res.data ;
+                this.data.photo = undefined;
+                console.log(this.data)
+            })
+            .catch(err => {
+
+                console.log(err.response.data)
+
+            })
+        }
+    },
+    beforeMount(){
+        this.getDetails()
     }
-  } //done upto the scope of MVP
-};
+  } 
 </script>

@@ -84,6 +84,7 @@ export default {
   methods: {
     loadImage(event) {
       this.memberData.photo = event;
+      console.log(this.memberData);
     },
     removeImage() {
       this.memberData.profilePhoto = null;

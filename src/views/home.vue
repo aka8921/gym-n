@@ -76,7 +76,7 @@
                   {{detail.name}}
                 </span>
                 <span class="caption pt-2">
-                  {{detail.phone}}
+                  {{'+91 ' + detail.phone}}
                 </span>
                 <span class="overline pt-2">
                   
@@ -158,7 +158,7 @@ export default {
             remainingDays /= 365
             d = 'Years'
           }
-          remainingDays = (d === 'Years')? remainingDays.toFixed(2) : Math.round(remainingDays)
+          remainingDays = (d === 'Years')? remainingDays.toFixed(1) : Math.round(remainingDays)
           return (remainingDays+' '+d);
 
 

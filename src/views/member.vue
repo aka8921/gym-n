@@ -94,7 +94,11 @@
 
                 <div class="ma-3"></div>
 
-                <span class="display-3">Log History</span>
+                <!--
+                    
+                    ------------ LOG ------------- 
+                    
+                    <span class="display-3">Log History</span>
 
                 <div class="ma-3"></div>
 
@@ -114,7 +118,7 @@
                         </tr>
                     </tbody>
                     </template>
-                </v-simple-table>
+                </v-simple-table>-->
 
 
                 <div class="ma-5">
@@ -220,35 +224,39 @@ export default {
             remainingDays /= 365
             d = 'Years'
           }
-          remainingDays = (d === 'Years')? remainingDays.toFixed(2) : Math.round(remainingDays)
+          remainingDays = (d === 'Years')? remainingDays.toFixed(1) : Math.round(remainingDays)
           return (remainingDays+' '+d);
       },
-      getLog(){
-            console.log('fetching the details');
-            var id = this.$route.params.id;
-            var tok = 'Token '+localStorage.getItem('token');
-             this.$axios(
-          {
-             url : `http://localhost:8000/api/v1/members/`,
-             method : 'GET',
-            params : {
-            search : id
-            },
-            headers:{
-              'Authorization' : tok,
-              }
-            })
-            .then( res => {
-                this.log = res.data ;
-                //console.log(res.data)
-                console.log('log History')
-                console.log(this.log)
-            })
-            .catch(err => {
-                console.log(err.response.data)
 
-            })
-        },
+
+
+    //  LOG Feature
+    //   getLog(){
+    //         console.log('fetching the details');
+    //         var id = this.$route.params.id;
+    //         var tok = 'Token '+localStorage.getItem('token');
+    //          this.$axios(
+    //       {
+    //          url : `http://localhost:8000/api/v1/members/`,
+    //          method : 'GET',
+    //         params : {
+    //         search : id
+    //         },
+    //         headers:{
+    //           'Authorization' : tok,
+    //           }
+    //         })
+    //         .then( res => {
+    //             this.log = res.data ;
+    //             //console.log(res.data)
+    //             console.log('log History')
+    //             console.log(this.log)
+    //         })
+    //         .catch(err => {
+    //             console.log(err.response.data)
+
+    //         })
+    //     },
         getDetails(){
             console.log('fetching the details');
             var id = this.$route.params.id;
