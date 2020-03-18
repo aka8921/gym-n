@@ -66,12 +66,12 @@ export default {
   data() {
     return {
       memberData: {
-        name: "vighnesh",
-        address: "karuna, morakkunnu, chirakkara",
-        phone: "8921830451",
-        age:20,
-        height:5,
-        weight:56,
+        name: "",
+        address: "",
+        phone: "",
+        age:"",
+        height:"",
+        weight:"",
         photo: null,
         date_joined: new Date().toISOString().substr(0, 10),
         exp_date: new Date().toISOString().substr(0, 10),
@@ -87,7 +87,7 @@ export default {
       console.log(this.memberData);
     },
 
-    
+
     removeImage() {
       this.memberData.profilePhoto = null;
     },
