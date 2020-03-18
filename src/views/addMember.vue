@@ -86,6 +86,8 @@ export default {
       this.memberData.photo = event;
       console.log(this.memberData);
     },
+
+    
     removeImage() {
       this.memberData.profilePhoto = null;
     },
@@ -113,7 +115,7 @@ export default {
         
       })
         .then(res => {
-          alert(`Member Added Successfully ${res}`);
+          console.log (res)
           this.$router.go(-1)
         })
         .catch(err => {

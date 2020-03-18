@@ -87,14 +87,18 @@ export default {
       previewImage: null
     };
   },
+
+
   methods: {
     loadImage(event) {
       this.data.photo = event;
       console.log(this.data);
     },
-    removeImage() {
+
+
+    // removeImage() {
       
-    },
+    // },
     
     editMember() {
 
@@ -103,7 +107,7 @@ export default {
       const editData = this.data;
       const formdata = new FormData();
       Object.keys(editData).forEach(key => {
-        formdata.append(key, editData[key]);
+        if(editData[key] !== null) formdata.append(key, editData[key]);
         console.log(editData[key]);
         });
 
@@ -146,8 +150,7 @@ export default {
           })
             .then( res => {
                 this.data = res.data ;
-                this.data.photo = undefined;
-                console.log(this.data)
+                this.data.photo = null;
             })
             .catch(err => {
 
