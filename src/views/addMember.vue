@@ -24,17 +24,52 @@
                 </div>
             </v-row>
             <div class="ma-5"></div>
+            <span class="overline">Name</span>
             <v-text-field label="Name" solo v-model="memberData.name"></v-text-field>
+            <span class="overline">Address</span>
             <v-text-field label="Address" solo v-model="memberData.address"></v-text-field>
+            <span class="overline">Age</span>
             <v-text-field label="Age" solo v-model="memberData.age"></v-text-field>
+            <span class="overline">Height</span>
             <v-text-field label="Height" solo v-model="memberData.height"></v-text-field>
+            <span class="overline">Weight</span>
             <v-text-field label="Weight" solo v-model="memberData.weight"></v-text-field>
+            <span class="overline">Photo</span>
             <v-text-field label="Phone Number" solo v-model="memberData.phone"></v-text-field>
             
             <!--<v-row justify="center">
                 <h1 class="display-3">Date Of Birth</h1>
             </v-row>-->
             <div class="ma-5"></div>
+            
+            
+
+
+
+
+            <v-row justify="center">
+                    <h1 class="display-1">Duration : {{this.memberData.duration}} Months</h1>
+            </v-row>
+
+
+
+            <v-row justify="center">
+            <div class="d-flex ma-5">
+                    <v-card class="yellow black--text pa-10 d-flex flex-column align-center justify-center" @click="renewMembership(1)">
+                        <span class="d-block overline">Renew For</span> 
+                        <span class="d-block display-3">1</span> 
+                        <span class="d-block overline">Month</span>
+                    </v-card >
+                    <div class="mx-3"></div>
+                    <v-card class="blue  pa-10 d-flex flex-column align-center justify-center" @click="renewMembership(3)">
+                        <span class="d-block overline">Renew For</span> 
+                        <span class="d-block display-3">3</span> 
+                        <span class="d-block overline">Months</span>
+                    </v-card >
+                </div>
+            </v-row>
+
+
         </v-col>
             <v-row justify="center" >
                 
@@ -76,6 +111,7 @@ export default {
         date_joined: new Date().toISOString().substr(0, 10),
         exp_date: new Date().toISOString().substr(0, 10),
         payment_status: true,
+        duration:0,
       },
       filename: null,
       previewImage: null
@@ -122,7 +158,25 @@ export default {
           console.log(err)
         });
         
-    }
+    },
+
+
+    renewMembership(n){
+      
+      console.log('called renew')
+      this.memberData.duration = n;
+
+
+      var startDate = new Date( this.memberData.date_joined);
+      console.log(startDate)
+      var endDateMoment = this.moment(startDate);
+      endDateMoment.add(n, 'months');
+      var extendedDate = endDateMoment.format('YYYY-MM-DD');
+      this.memberData.exp_date = extendedDate;
+      console.log(this.memberData.exp_date);
+      
+    },
+
   } 
 };
 </script>

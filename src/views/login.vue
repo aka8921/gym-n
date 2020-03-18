@@ -19,7 +19,6 @@
                             ></v-text-field>
                             <v-text-field
                                 v-model="password"
-                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                 type="password"
                                 label="Password"
                                 solo

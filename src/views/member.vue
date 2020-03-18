@@ -191,6 +191,7 @@ export default {
                 method: 'PATCH',
                 data:{
                     exp_date: extendedDate,
+                    duration: n
                 }
                 
             })
