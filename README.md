@@ -2,16 +2,12 @@
 
 
 ## Login Page
-![1](https://drive.google.com/uc?export=view&id=1ahiSpt_6TzhMhXJf4zbGADIt11xDdUic)
+https://drive.google.com/open?id=1dGn6ewonIdzrp7V8jPBTNGbiCzu6gykj
+![1](https://drive.google.com/uc?export=view&id=1dGn6ewonIdzrp7V8jPBTNGbiCzu6gykj)
 
 
 
-## Home Screen
-![2](https://drive.google.com/uc?export=view&id=1Q8OJGx8mBvHobx-PZFnShsylhmf7XIVc)
 
-
-## Member Screen
-![3](https://drive.google.com/uc?export=view&id=1nuDAQzCbiSz2X0LrAz15M8HmNYPCGZzY)
 
 ## Project setup
 ```
